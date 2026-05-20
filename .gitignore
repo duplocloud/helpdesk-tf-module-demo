@@ -1,0 +1,22 @@
+# Terraform provider downloads + workspace metadata
+**/.terraform/
+**/terraform.tfstate.d/
+
+# Local state files (shouldn't exist with S3 backend, but defensive)
+*.tfstate
+*.tfstate.*
+
+# Lambda build artifacts
+**/lambda/*.zip
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive overrides
+*_override.tf
+*_override.tf.json
+override.tf
+override.tf.json
+.terraformrc
+terraform.rc
