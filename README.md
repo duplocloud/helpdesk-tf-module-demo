@@ -66,12 +66,3 @@ cd ../network && AWS_PROFILE=test21 terraform destroy -var-file=envs/dev.tfvars
 
 Order matters — destroy application first, then network (so the `terraform_remote_state` reference is still valid).
 
-## Test fixtures (no AWS needed)
-
-Skill testing fixtures live at `../fixtures/`, not here. See `../fixtures/README.md`.
-
-```bash
-cd /Users/a91879/work/dc/ai-helpdesk-dev/TFModulePOC
-python3 Skill/generate_html.py --model fixtures/env-model-dev.json    --output /tmp/dev.html
-python3 Skill/generate_html.py --model fixtures/env-model-dev-s3.json --output /tmp/dev-s3.html --aws-profile test21
-```
