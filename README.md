@@ -65,5 +65,3 @@ cd ../network && AWS_PROFILE=test21 terraform destroy -var-file=envs/dev.tfvars
 ```
 
 Order matters — destroy application first, then network (so the `terraform_remote_state` reference is still valid).
-
-
