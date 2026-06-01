@@ -2,6 +2,9 @@
 **/.terraform/
 **/terraform.tfstate.d/
 
+# DuploCloud agent runtime lock
+.tf-action.lock
+
 # Local state files (shouldn't exist with S3 backend, but defensive)
 *.tfstate
 *.tfstate.*
