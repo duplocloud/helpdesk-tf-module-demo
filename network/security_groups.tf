@@ -1,3 +1,26 @@
+resource "aws_security_group" "mysql_internal" {
+  name        = "acme-${var.env_name}-mysql-internal"
+  description = "Allow MySQL traffic within the VPC"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "MySQL"
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(local.common_tags, { Name = "acme-${var.env_name}-mysql-internal" })
+}
+
 resource "aws_security_group" "alb_public" {
   name        = "acme-${var.env_name}-alb-public"
   description = "Allow HTTP and HTTPS inbound traffic for the public load balancer"
