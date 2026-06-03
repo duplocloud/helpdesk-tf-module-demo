@@ -12,3 +12,8 @@ resource "aws_s3_bucket" "archive" {
   bucket = "acme-${var.env_name}-archive-${local.account_id}"
   tags   = merge(local.common_tags, { Name = "acme-${var.env_name}-archive", purpose = "cold-storage" })
 }
+
+resource "aws_s3_bucket" "analytics" {
+  bucket = "acme-${var.env_name}-analytics-${local.account_id}"
+  tags   = merge(local.common_tags, { Name = "acme-${var.env_name}-analytics", purpose = "analytics" })
+}
