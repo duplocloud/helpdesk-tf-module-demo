@@ -13,3 +13,8 @@ output "private_subnet_ids" {
 output "alb_public_sg_id" {
   value = aws_security_group.alb_public.id
 }
+
+output "random_password" {
+  value     = random_password.main.result
+  sensitive = true
+}

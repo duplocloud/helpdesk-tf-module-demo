@@ -24,3 +24,9 @@ variable "az_count" {
   type    = number
   default = 2
 }
+
+variable "sleep_duration" {
+  description = "Duration to wait on resource creation (e.g. \"20s\", \"1m\")."
+  type        = string
+  default     = "20s"
+}
