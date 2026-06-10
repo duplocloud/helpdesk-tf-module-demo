@@ -1,12 +1,19 @@
-resource "aws_security_group" "mysql_internal" {
-  name        = "acme-${var.env_name}-mysql-internal"
-  description = "Allow MySQL traffic within the VPC"
+moved {
+  from = aws_security_group.mysql_internal
+  to   = aws_security_group.db_internal["mysql"]
+}
+
+resource "aws_security_group" "db_internal" {
+  for_each = local.db_security_groups
+
+  name        = "acme-${var.env_name}-${each.key}-internal"
+  description = each.value.description
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "MySQL"
-    from_port   = 3306
-    to_port     = 3306
+    description = each.value.description
+    from_port   = each.value.port
+    to_port     = each.value.port
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr]
   }
@@ -18,7 +25,7 @@ resource "aws_security_group" "mysql_internal" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(local.common_tags, { Name = "acme-${var.env_name}-mysql-internal" })
+  tags = merge(local.common_tags, { Name = "acme-${var.env_name}-${each.key}-internal" })
 }
 
 resource "aws_security_group" "alb_public" {
